@@ -1,2 +1,2 @@
-# wp-rest-autehnication-plugin
-Wordpress REST Autehnication Plugin
+# wp-rest-authentication-plugin
+Wordpress REST Authentication Plugin
