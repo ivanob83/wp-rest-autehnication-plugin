@@ -11,7 +11,6 @@ define('AUTHENTICATIONAPI_DIR', plugin_dir_path( __FILE__ ));
 define('AUTHENTICATIONAPI_FILENAME', __FILE__ );
 
 require AUTHENTICATIONAPI_DIR . 'bootstrap/AuthApi.php';
-require AUTHENTICATIONAPI_DIR . 'app/Http/Controllers/Controller.php';
 require AUTHENTICATIONAPI_DIR . 'helpers/Database.php';
 
 //Database::create('Tournament');
