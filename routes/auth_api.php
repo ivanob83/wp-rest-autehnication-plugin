@@ -23,5 +23,15 @@ function register_api_hooks() {
       'callback' => ['AuthController', 'forgot_password'],
     )
   );
+  register_rest_route(
+    'v2', 'current-user',
+    array(
+      'methods'  => 'GET',
+      'callback' => ['AuthController', 'current_user'],
+      'permission_callback' => function(){
+            return is_user_logged_in();
+      },
+    )
+  );
 }
 ?>

@@ -2,15 +2,21 @@
 class AuthController {
     public static function login($request) {
         $response = new stdClass;
-        $creds = array();
+        /*$creds = array();
         $creds['user_login'] = $request["user_login"];
         $creds['user_password'] =  $request["user_password"];
-        $user = wp_signon( $creds, false );
-        if($user->errors) {
-            $response->errors = $user->errors;
+        $user = wp_signon( $creds, false );*/
+        $jwt = new Jwt_Auth_Public('jwt','1');
+        $req = new WP_REST_Request();
+        $req['username'] = $request["user_login"];
+        $req['password'] = $request["user_password"];
+        $jwtresp = $jwt->generate_token($req);
+        if(isset($jwtresp->errors)) {
+            $response->errors = $jwtresp->errors;
             $response_code = 403;
         } else {
-            $response->user = $user;
+            //$response->user = $user;
+            $response = $jwtresp;
             $response_code = 200;
         }
 		return wp_send_json( $response, $response_code, 0 );
@@ -102,4 +108,17 @@ class AuthController {
         $response->success =  __('Password reset link has been sent to your registered email.');
         return wp_send_json( $response, 200, 0 );
     }
+
+    public static function current_user() {
+        $response = new stdClass;
+        $user = wp_get_current_user();
+        if($user->errors) {
+            $response->errors = $user->errors;
+            $response_code = 403;
+        } else {
+            $response->user = $user;
+            $response_code = 200;
+        }
+		return wp_send_json( $response, $response_code, 0 );
+	}
 }
