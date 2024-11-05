@@ -15,7 +15,6 @@ class AuthController {
             $response->errors = $jwtresp->errors;
             $response_code = 403;
         } else {
-            //$response->user = $user;
             $response = $jwtresp;
             $response_code = 200;
         }
